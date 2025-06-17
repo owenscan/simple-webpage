@@ -976,16 +976,14 @@
           <span class="text-sm text-gray-500">$0.15/view</span>
         </div>
         <p class="text-sm text-gray-500 mt-1">Min 200 - Max 50000</p>
-        <div class="flex space-x-4 mt-2 text-gray-800">
-          <label class="flex items-center space-x-2">
-            <input type="checkbox" id="watch6">
-            <span>Up to 6 mins</span>
-          </label>
-          <label class="flex items-center space-x-2">
-            <input type="checkbox" id="watch8">
-            <span>Up to 8 mins</span>
-          </label>
-        </div>
+       <div class="mt-2 space-x-4">
+  <label class="text-gray-700">
+    <input type="checkbox" class="view-duration-checkbox mr-1" value="6" /> Up to 6 mins
+  </label>
+  <label class="text-gray-700">
+    <input type="checkbox" class="view-duration-checkbox mr-1" value="8" /> Up to 8 mins
+  </label>
+</div>
       </div>
     </div>
 
@@ -1348,5 +1346,18 @@
         return false;
       }
     </script>
+    <script>
+  const durationCheckboxes = document.querySelectorAll('.view-duration-checkbox');
+
+  durationCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) {
+        durationCheckboxes.forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
+      }
+    });
+  });
+</script>
   </body>
 </html>
