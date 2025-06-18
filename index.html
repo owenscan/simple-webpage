@@ -1073,6 +1073,104 @@
     subsAmount.addEventListener('input', calculateTotal);
   </script>
 </section>
+<section class="bg-white py-12">
+  <div class="max-w-3xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">FAQs</h2>
+
+    <div class="space-y-4">
+      <!-- FAQ Item -->
+      <div class="border-b">
+        <button class="w-full text-left flex justify-between items-center py-4 text-lg font-medium text-gray-800 focus:outline-none" onclick="toggleFAQ(this)">
+          Are these real views?
+          <span class="text-gray-500">+</span>
+        </button>
+        <div class="hidden text-gray-600 pb-4">
+          Absolutely, yes. Our users have been verified before joining us. We do not allow bots or users with proxies or vpns. Our campaigns are well structured to simulate natural view behavior (watch time, CTR, retention) and follow platform-safe guidelines.
+        </div>
+      </div>
+
+      <div class="border-b">
+        <button class="w-full text-left flex justify-between items-center py-4 text-lg font-medium text-gray-800 focus:outline-none" onclick="toggleFAQ(this)">
+          Will these views count towards monetization?
+          <span class="text-gray-500">+</span>
+        </button>
+        <div class="hidden text-gray-600 pb-4">
+          Yes — but with a few important notes. <br />
+          Our view system is designed to be safe, realistic, and algorithm-friendly, meaning the views register normally in your YouTube analytics.<br />
+          <br />
+          Views from our users can contribute to your overall watch time, which is required for monetization.<br />
+          These views alone won’t guarantee monetization approval — YouTube looks at total channel behavior, not just raw numbers.<br />
+          Engagement matters — subscribers, comments, and watch time are all part of the review process. We help you get the traction, but your content still needs to connect.<br />
+          So while our views can support your journey to monetization, they should be part of a bigger growth plan, not the only step.
+        </div>
+      </div>
+
+      <div class="border-b">
+        <button class="w-full text-left flex justify-between items-center py-4 text-lg font-medium text-gray-800 focus:outline-none" onclick="toggleFAQ(this)">
+          Will this get me banned or demonetized?
+          <span class="text-gray-500">+</span>
+        </button>
+        <div class="hidden text-gray-600 pb-4">
+          We take safety seriously. Our approach is designed to avoid spammy behavior that violates YouTube’s Terms of Service. We don’t deliver fake engagement or use bot click farms. We employ strategic promotions, not view farming.
+        </div>
+      </div>
+
+      <div class="border-b">
+        <button class="w-full text-left flex justify-between items-center py-4 text-lg font-medium text-gray-800 focus:outline-none" onclick="toggleFAQ(this)">
+          Can I use this on old videos?
+          <span class="text-gray-500">+</span>
+        </button>
+        <div class="hidden text-gray-600 pb-4">
+          Yes. If you have a great video that never got the attention it deserved, a Kickstarter push can help revive it and give it a second chance with the algorithm. We’ve had clients see success with this.
+        </div>
+      </div>
+
+      <div class="border-b">
+        <button class="w-full text-left flex justify-between items-center py-4 text-lg font-medium text-gray-800 focus:outline-none" onclick="toggleFAQ(this)">
+          Does this guarantee I’ll go viral?
+          <span class="text-gray-500">+</span>
+        </button>
+        <div class="hidden text-gray-600 pb-4">
+          No. We can’t guarantee that your videos will go viral with our views — and anyone who says otherwise is lying. What we offer is a real shot at being discovered and your content should take it.
+        </div>
+      </div>
+
+      <div class="border-b">
+        <button class="w-full text-left flex justify-between items-center py-4 text-lg font-medium text-gray-800 focus:outline-none" onclick="toggleFAQ(this)">
+          How many views should I start with?
+          <span class="text-gray-500">+</span>
+        </button>
+        <div class="hidden text-gray-600 pb-4">
+          We recommend:<br />
+          - 500–1,000 views for small channels testing the waters<br />
+          - 2,000–5,000 views for serious launch pushes or promotional videos<br />
+          - 10,000+ views for more competitive niches<br /><br />
+          It depends on your content, niche, and goals — we’ll help you pick the right package.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function toggleFAQ(button) {
+    const content = button.nextElementSibling;
+    const plusIcon = button.querySelector("span");
+
+    const isOpen = !content.classList.contains("hidden");
+
+    // Close all other FAQ answers
+    document.querySelectorAll("section .space-y-4 > div").forEach((faq) => {
+      faq.querySelector("div").classList.add("hidden");
+      faq.querySelector("span").textContent = "+";
+    });
+
+    if (!isOpen) {
+      content.classList.remove("hidden");
+      plusIcon.textContent = "–";
+    }
+  }
+</script>
     <!-- Change the colour #f8fafc to match the previous section colour -->
     <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
