@@ -473,7 +473,45 @@
         <span>Comments</span>
       </label>
     </div>
+<!-- Divider -->
+<div class="border-t border-gray-300 my-6"></div>
 
+<!-- Email Field -->
+<div class="mt-6">
+  <label for="userEmail" class="block font-semibold text-gray-800 mb-1">Your Email</label>
+  <input
+    type="email"
+    id="userEmail"
+    required
+    class="border rounded px-4 py-2 w-full text-gray-800"
+    placeholder="you@example.com"
+  />
+</div>
+
+<!-- Video/Channel Link Field -->
+<div class="mt-4">
+  <label for="videoLink" class="block font-semibold text-gray-800 mb-1">Video or Channel Link</label>
+  <input
+    type="url"
+    id="videoLink"
+    required
+    class="border rounded px-4 py-2 w-full text-gray-800"
+    placeholder="https://youtube.com/..."
+  />
+</div>
+
+<!-- Payment Method -->
+<div class="mt-4">
+  <label for="paymentMethod" class="block font-semibold text-gray-800 mb-1">Payment Method</label>
+  <select
+  id="paymentMethod"
+  class="border rounded px-4 py-2 pr-10 w-full text-gray-800"
+>
+  <option value="paystack">Pay with Card (Paystack)</option>
+  <option value="crypto">Pay with Crypto (NowPayments)</option>
+</select>
+</div>
+    
     <!-- Price Summary -->
     <div class="mt-6 border-t pt-4 text-center text-gray-800">
       <p class="text-lg font-semibold">Total Price: <span id="totalPrice">$0.00</span></p>
