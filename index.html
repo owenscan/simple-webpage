@@ -84,9 +84,11 @@
 </a>
         </div>
         <!--Right Col-->
-        <div class="w-full md:w-3/5 py-6 flex justify-center lg:justify-end pr-0">
-          <img class="w-full max-w-xl z-50 transform lg:-translate-x-16 xl:-translate-x-24" src="hero.png" />
-        </div>
+        <!-- Right Col -->
+<div class="w-full md:w-3/5 py-6 flex justify-center lg:justify-end pr-0">
+  <img class="w-full max-w-xl z-50 transform lg:-translate-x-16 xl:-translate-x-24" src="hero.png" />
+</div>
+
       </div>
     </div>
     <div class="relative -mt-6 lg:-mt-12 z-0">
@@ -457,8 +459,19 @@
     <input type="text" id="searchTerm" class="border rounded px-4 py-2 w-full text-gray-800" placeholder="e.g. travel vlog, cooking tutorial">
   </div>
 </div>
+<!-- Comments Option -->
+<div>
+  <label class="flex items-center space-x-2 mb-2 text-gray-800">
+    <input type="checkbox" id="commentsToggle" class="form-checkbox h-5 w-5">
+    <span class="text-lg font-medium">Comments</span>
+  </label>
+  <div id="commentsInputGroup" class="hidden mb-6">
+    <label class="block font-semibold mb-1 text-gray-800">Enter your comments</label>
+    <input type="text" id="commentList" class="border rounded px-4 py-2 w-full text-gray-800" placeholder="Separate each comment with a comma">
+  </div>
+</div>
 
-    <!-- Likes, Shares, Comments -->
+    <!-- Likes, Shares -->
     <div class="mt-4 grid grid-cols-1 gap-3 text-gray-800">
       <label class="flex items-center space-x-2">
         <input type="checkbox" id="likesToggle" class="form-checkbox h-5 w-5">
@@ -467,10 +480,6 @@
       <label class="flex items-center space-x-2">
         <input type="checkbox" id="sharesToggle" class="form-checkbox h-5 w-5">
         <span>Shares</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" id="commentsToggle" class="form-checkbox h-5 w-5">
-        <span>Comments</span>
       </label>
     </div>
 <!-- Divider -->
@@ -511,7 +520,7 @@
   <option value="crypto">Pay with Crypto (NowPayments)</option>
 </select>
 </div>
-    
+
     <!-- Price Summary -->
     <div class="mt-6 border-t pt-4 text-center text-gray-800">
       <p class="text-lg font-semibold">Total Price: <span id="totalPrice">$0.00</span></p>
@@ -572,6 +581,15 @@
     searchInputGroup.classList.toggle('hidden', !searchToggle.checked);
   });
 </script>
+     <script>
+  const commentsToggle = document.getElementById("commentsToggle");
+  const commentsInputGroup = document.getElementById("commentsInputGroup");
+
+  commentsToggle.addEventListener("change", () => {
+    commentsInputGroup.classList.toggle("hidden", !commentsToggle.checked);
+  });
+</script>
+
 </section>
 <section class="bg-white py-12" id="faq">
   <div class="max-w-3xl mx-auto px-4">
@@ -815,6 +833,83 @@
         });
       }
     });
+  });
+</script>
+    <script>
+  document.querySelector("button.w-full").addEventListener("click", async () => {
+    // Gather toggle values
+    const viewsSelected = document.getElementById("viewsToggle").checked;
+    const subsSelected = document.getElementById("subsToggle").checked;
+    const likesSelected = document.getElementById("likesToggle").checked;
+    const sharesSelected = document.getElementById("sharesToggle").checked;
+    const commentsSelected = document.getElementById("commentsToggle").checked;
+    const searchSelected = document.getElementById("searchToggle").checked;
+
+    // Gather input values
+    const viewsAmount = viewsSelected ? parseInt(document.getElementById("viewsAmount").value) || 0 : 0;
+    const subsAmount = subsSelected ? parseInt(document.getElementById("subsAmount").value) || 0 : 0;
+    const searchTerm = searchSelected ? document.getElementById("searchTerm").value.trim() : "";
+    const commentList = commentsSelected ? document.getElementById("commentList").value.trim() : "";
+
+
+    // View durations (checkboxes)
+    const viewDurationCheckboxes = document.querySelectorAll(".view-duration-checkbox:checked");
+    const viewDurations = Array.from(viewDurationCheckboxes).map(cb => cb.value);
+
+    // Contact/payment info
+    const userEmail = document.getElementById("userEmail").value.trim();
+    const videoLink = document.getElementById("videoLink").value.trim();
+    const paymentMethod = document.getElementById("paymentMethod").value;
+
+    // Total price display (for confirmation)
+    const totalPriceText = document.getElementById("totalPrice").textContent;
+
+    // Prepare the payload
+   const payload = {
+  viewsSelected,
+  viewsAmount,
+  viewDurations,
+  subsSelected,
+  subsAmount,
+  searchSelected,
+  searchTerm,
+  likesSelected,
+  sharesSelected,
+  commentsSelected,
+  commentList,
+  userEmail,
+  videoLink,
+  paymentMethod,
+  totalPrice: totalPriceText,
+};
+
+
+    // Send data to backend
+    try {
+      const res = await fetch("/api/place-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert("Order submitted successfully!");
+        // Optional: redirect to payment based on method
+        if (paymentMethod === "paystack") {
+          // initiate paystack
+        } else if (paymentMethod === "crypto") {
+          // redirect to nowpayments invoice page
+        }
+      } else {
+        alert("Something went wrong: " + result.message);
+      }
+    } catch (error) {
+      console.error("Order submission failed", error);
+      alert("Failed to submit order. Please try again.");
+    }
   });
 </script>
 <script>
