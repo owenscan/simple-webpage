@@ -528,7 +528,7 @@
 
     <!-- Place Order Button -->
     <div class="mt-6">
-      <button class="w-full bg-black text-white py-3 rounded-full font-bold hover:bg-gray-900 transition">
+      <button class="place-order-btn w-full bg-black text-white py-3 rounded-full font-bold hover:bg-gray-900 transition">
         Place Order
       </button>
     </div>
@@ -909,6 +909,41 @@
     } catch (error) {
       console.error("Order submission failed", error);
       alert("Failed to submit order. Please try again.");
+    }
+  });
+</script>
+    <script>
+  document.querySelector("button.place-order-btn").addEventListener("click", async () => {
+    const payload = {
+      views: document.getElementById("viewsToggle").checked ? parseInt(document.getElementById("viewsAmount").value || 0) : 0,
+      subs: document.getElementById("subsToggle").checked ? parseInt(document.getElementById("subsAmount").value || 0) : 0,
+      searchTerm: document.getElementById("searchToggle").checked ? document.getElementById("searchTerm").value : "",
+      likes: document.getElementById("likesToggle").checked,
+      shares: document.getElementById("sharesToggle").checked,
+      comments: document.getElementById("commentsToggle").checked,
+      commentTexts: document.getElementById("commentTexts")?.value || "",
+      userEmail: document.getElementById("userEmail").value,
+      videoLink: document.getElementById("videoLink").value,
+      paymentMethod: document.getElementById("paymentMethod").value,
+      totalPrice: document.getElementById("totalPrice").textContent.trim(),
+    };
+
+    try {
+      const res = await fetch("https://your-backend.com/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (data.payUrl) {
+        window.location.href = data.payUrl; // redirect to payment
+      } else {
+        alert("Order submitted, but no payment link received.");
+      }
+    } catch (error) {
+      alert("Something went wrong. Try again.");
+      console.error(error);
     }
   });
 </script>
